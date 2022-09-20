@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.InsertNoteActivity">
+
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="50dp"
+            android:id="@+id/insertActivityBackButton"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/app_color"
+            android:contentDescription="@string/app_name"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="13dp"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/back"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteNote"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="60dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingHorizontal="13dp"
+            app:cornerRadius="10dp"
+            android:gravity="center"
+            app:icon="@drawable/delete"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="50dp"
+            android:id="@+id/editNote"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/app_color"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="15dp"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/edit" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_background"
+        android:textSize="30sp"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="10dp"
+        android:textSize="19dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/noteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edit_text_background"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:inputType="text" />
+
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.InsertNoteActivity">
+
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/insertActivityBackButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/app_color"
+            android:contentDescription="@string/app_name"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="13dp"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/insertActivitySaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:backgroundTint="@color/app_color"
+            android:gravity="center"
+            android:text="Save"
+            app:cornerRadius="10dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/insertActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Title"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_background"
+        android:textSize="30sp"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginTop="40dp"/>
+
+    <EditText
+        android:id="@+id/insertActivityNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="Type Something.."
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textSize="18sp"/>
+
+
+</LinearLayout>
