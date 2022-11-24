@@ -35,7 +35,7 @@ class InsertNoteActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         state = intent.getStringExtra("state").toString()
-        position = intent.getIntExtra("position", 0)
+        position = intent.getIntExtra("id", 0)
 
         val notesDatabase = NotesDatabase.getDatabase(applicationContext)
         val repository = NotesRepository(notesDatabase)

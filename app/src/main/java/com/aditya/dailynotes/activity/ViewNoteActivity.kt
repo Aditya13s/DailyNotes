@@ -17,6 +17,8 @@ class ViewNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewNoteBinding
     private lateinit var mainViewModel: MainViewModel
 
+    var canLoad = true
+
     override
     fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,49 +26,68 @@ class ViewNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val position: Int = intent.getIntExtra("position",0)
+        val ID: Int = intent.getIntExtra("id", 0)
 
         val repository = NotesRepository(NotesDatabase.getDatabase(applicationContext))
-        mainViewModel = ViewModelProvider(this,
-            MainViewModelFactory(repository))[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(repository)
+        )[MainViewModel::class.java]
 
         var id = "";
-        var title : String = ""
+        var title: String = ""
         var description: String = ""
-        mainViewModel.getNotes().observe(this, Observer {
-            if(it.isNotEmpty()) {
-                binding.noteTextView.text = it[position].description
-                binding.titleTextView.text = it[position].title
-                binding.dateTextView.text = it[position].date
-                id = it[position].id.toString()
-                title = it[position].title
-                description = it[position].description
+        mainViewModel.getNote(ID.toString()).observe(this, Observer {
+
+            if (canLoad) {
+                binding.noteTextView.text = it.description
+                binding.titleTextView.text = it.title
+                binding.dateTextView.text = it.date
+                id = it.id.toString()
+                title = it.title
+                description = it.description
             }
+
         })
 
-
         binding.deleteNote.setOnClickListener {
-            var note: Notes = deleteNote(id,title,description,binding.dateTextView.text.toString() );
+            canLoad = false
+            var note: Notes =
+                deleteNote(id, title, description, binding.dateTextView.text.toString());
             mainViewModel.deleteNote(note)
             finish()
-            Toast.makeText(this,"Note Successfully Deleted", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Note Successfully Deleted", Toast.LENGTH_SHORT).show()
         }
+
         binding.insertActivityBackButton.setOnClickListener {
             finish()
         }
 
         binding.editNote.setOnClickListener {
             val intent = Intent(this@ViewNoteActivity, InsertNoteActivity::class.java)
-            intent.putExtra("position", position)
+            intent.putExtra("id", ID)
             intent.putExtra("state", "update")
-            intent.putStringArrayListExtra("notes", arrayListOf(id,binding.titleTextView.text.toString(),binding.noteTextView.text.toString(),binding.dateTextView.text.toString()))
+            intent.putStringArrayListExtra(
+                "notes",
+                arrayListOf(
+                    id,
+                    binding.titleTextView.text.toString(),
+                    binding.noteTextView.text.toString(),
+                    binding.dateTextView.text.toString()
+                )
+            )
             startActivity(intent)
         }
 
 
     }
 
-    private fun deleteNote(id: String, title: String, description: String, toString: String): Notes {
-        return Notes(Integer.parseInt(id),title,description, toString)
+    private fun deleteNote(
+        id: String,
+        title: String,
+        description: String,
+        toString: String
+    ): Notes {
+        return Notes(Integer.parseInt(id), title, description, toString)
     }
 }

@@ -34,7 +34,7 @@ class NotesAdapter(var notes : List<Notes>) : RecyclerView.Adapter<NotesAdapter.
 
         holder.itemView.setOnClickListener {
             var intent = Intent(context,ViewNoteActivity::class.java)
-            intent.putExtra("position",position)
+            intent.putExtra("id",notes[position].id)
             context.startActivity(intent)
         }
     }

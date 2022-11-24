@@ -12,7 +12,10 @@ import androidx.room.Update
 public interface NotesDao {
 
     @Query("SELECT * FROM notes")
-    fun getNotes() : LiveData<List<Notes>>
+    fun getNotes(): LiveData<List<Notes>>
+
+    @Query("SELECT * FROM notes WHERE ID =:ID")
+    fun getNote(ID: String): LiveData<Notes>
 
     @Insert
     suspend fun insertNote(note: Notes)

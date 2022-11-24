@@ -11,6 +11,10 @@ class MainViewModel(private val repository: NotesRepository) : ViewModel() {
         return repository.getNotes()
     }
 
+    fun getNote(ID : String) : LiveData<Notes> {
+        return repository.getNote(ID)
+    }
+
      fun insertNote(note: Notes) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertNote(note)

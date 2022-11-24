@@ -12,6 +12,9 @@ class NotesRepository(
     fun getNotes() : LiveData<List<Notes>> {
         return notesDatabase.notesDao().getNotes()
     }
+    fun getNote(ID: String): LiveData<Notes>{
+        return notesDatabase.notesDao().getNote(ID)
+    }
 
     suspend fun insertNote(note: Notes) {
         notesDatabase.notesDao().insertNote(note)
