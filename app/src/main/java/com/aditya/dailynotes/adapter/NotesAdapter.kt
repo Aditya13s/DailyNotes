@@ -1,5 +1,6 @@
 package com.aditya.dailynotes.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -33,14 +34,15 @@ class NotesAdapter(var notes : List<Notes>) : RecyclerView.Adapter<NotesAdapter.
         holder.description.text = notes[position].description
 
         holder.itemView.setOnClickListener {
-            var intent = Intent(context,ViewNoteActivity::class.java)
+            val intent = Intent(context,ViewNoteActivity::class.java)
             intent.putExtra("id",notes[position].id)
             context.startActivity(intent)
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun filteredList(note : List<Notes>) {
-        NotesAdapter(note)!!.notifyDataSetChanged()
+        NotesAdapter(note).notifyDataSetChanged()
 
     }
     override fun getItemCount(): Int {
