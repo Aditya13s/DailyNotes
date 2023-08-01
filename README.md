@@ -1,6 +1,6 @@
 # DailyNotes
 
-Apk Link - https://firebasestorage.googleapis.com/v0/b/kotlin-firebase-app-ef6a7.appspot.com/o/dailyNotes.apk?alt=media&token=4f6e8973-ad63-4606-955d-6c3d11f44f04
+Apk Link - https://firebasestorage.googleapis.com/v0/b/hungerfree-2d46e.appspot.com/o/app-debug.apk?alt=media&token=0be324fa-64b4-4adf-9cb0-378fbf0567b2
 
 - An Interactive notes app which helps to store important notes.
 - This App is app created with MVVM Architecture.
