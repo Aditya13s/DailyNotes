@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Daily Notes</string>
+    <string name="app_name" translatable="false">Daily Notes</string>
+    <string name="add_note">Adding the Note</string>
 </resources>
