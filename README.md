@@ -1,7 +1,5 @@
 # DailyNotes
 
-Apk Link - https://firebasestorage.googleapis.com/v0/b/hungerfree-2d46e.appspot.com/o/app-debug.apk?alt=media&token=0be324fa-64b4-4adf-9cb0-378fbf0567b2
-
 - An Interactive notes app which helps to store important notes.
 - This App is app created with MVVM Architecture.
 -	Notes are stored in Room Database.
