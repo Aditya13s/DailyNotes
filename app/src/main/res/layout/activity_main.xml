@@ -4,37 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
+    android:background="@color/background"
     tools:context=".activity.MainActivity">
 
+    <!-- App Bar with Title -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface"
+        android:elevation="4dp"
+        app:title="Daily Notes"
+        app:titleTextColor="@color/on_surface"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Empty State Layout -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add"
+            android:alpha="0.3"
+            android:contentDescription="No notes" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No notes yet"
+            android:textSize="20sp"
+            android:textColor="@color/on_surface_variant"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap the + button to create your first note"
+            android:textSize="14sp"
+            android:textColor="@color/on_surface_variant"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+    <!-- RecyclerView for Notes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:layout_height="0dp"
+        android:paddingTop="16dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!-- Extended Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/newNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/newNote"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="28dp"
-        android:backgroundTint="@color/app_color"
-        android:contentDescription="@string/app_name"
-        android:hapticFeedbackEnabled="true"
-        android:src="@drawable/add"
-        app:backgroundTint="@color/app_color"
-        app:borderWidth="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Add new note"
+        android:text="New Note"
+        app:icon="@drawable/add"
+        app:backgroundTint="@color/primary_container"
+        app:iconTint="@color/on_primary_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         tools:ignore="ImageContrastCheck" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
