@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.search_note,menu)
         val menuItem = menu?.findItem(R.id.searchNote)
         val searchView: SearchView = menuItem?.actionView as SearchView
-        searchView.queryHint = "Search Notes Here..."
+        searchView.queryHint = getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true

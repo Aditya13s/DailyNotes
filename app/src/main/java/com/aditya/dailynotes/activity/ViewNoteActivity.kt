@@ -65,7 +65,7 @@ class ViewNoteActivity : AppCompatActivity() {
                 deleteNote(id, title, description, binding.dateTextView.text.toString());
             mainViewModel.deleteNote(note)
             finish()
-            Toast.makeText(this, "Note Successfully Deleted", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.note_deleted), Toast.LENGTH_SHORT).show()
         }
 
         binding.editNote.setOnClickListener {

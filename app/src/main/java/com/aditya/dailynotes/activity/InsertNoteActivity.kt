@@ -53,7 +53,7 @@ class InsertNoteActivity : AppCompatActivity() {
             MainViewModelFactory(repository))[MainViewModel::class.java]
 
         if(state == "update") {
-            binding.toolbar.title = "Edit Note"
+            binding.toolbar.title = getString(R.string.edit_note)
             val title = intent.getStringArrayListExtra("notes")?.get(1).toString()
             val note = intent.getStringArrayListExtra("notes")?.get(2).toString()
 
@@ -66,7 +66,7 @@ class InsertNoteActivity : AppCompatActivity() {
                 //This give us a note data class which we have to update
                 val note = updateNote()
                 mainViewModel.updateNote(note)
-                Toast.makeText(this,"Note Successfully Updated",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show()
                 finish()
 
             } else {
@@ -76,7 +76,7 @@ class InsertNoteActivity : AppCompatActivity() {
                     finish()
                 } else {
                     mainViewModel.insertNote(addNote)
-                    Toast.makeText(this@InsertNoteActivity, "Note Successfully Created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@InsertNoteActivity, getString(R.string.note_saved), Toast.LENGTH_SHORT).show()
                     finish()
                 }
 

@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No notes yet"
+            android:text="@string/empty_state_title"
             android:textSize="20sp"
             android:textColor="@color/on_surface_variant"
             android:layout_marginTop="16dp" />
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap the + button to create your first note"
+            android:text="@string/empty_state_subtitle"
             android:textSize="14sp"
             android:textColor="@color/on_surface_variant"
             android:layout_marginTop="8dp" />
@@ -81,7 +81,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="Add new note"
-        android:text="New Note"
+        android:text="@string/new_note"
         app:icon="@drawable/add"
         app:backgroundTint="@color/primary_container"
         app:iconTint="@color/on_primary_container"
