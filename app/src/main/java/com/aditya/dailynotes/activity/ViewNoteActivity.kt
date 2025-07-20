@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.aditya.dailynotes.R
 import com.aditya.dailynotes.database.Notes
 import com.aditya.dailynotes.database.NotesDatabase
 import com.aditya.dailynotes.databinding.ActivityViewNoteBinding

@@ -1,24 +1,24 @@
 package com.aditya.dailynotes.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
-import android.text.Editable
-import android.text.SpannableStringBuilder
+import android.os.Handler
+import android.os.Looper
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.lifecycle.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnLayout
+import androidx.lifecycle.ViewModelProvider
 import com.aditya.dailynotes.R
-import com.aditya.dailynotes.database.*
+import com.aditya.dailynotes.database.Notes
+import com.aditya.dailynotes.database.NotesDatabase
 import com.aditya.dailynotes.databinding.ActivityInsertNoteBinding
 import com.aditya.dailynotes.repository.NotesRepository
-import com.aditya.dailynotes.viewModel.*
-import java.text.FieldPosition
+import com.aditya.dailynotes.viewModel.MainViewModel
+import com.aditya.dailynotes.viewModel.MainViewModelFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class InsertNoteActivity : AppCompatActivity() {
 
@@ -59,6 +59,24 @@ class InsertNoteActivity : AppCompatActivity() {
 
             binding.insertActivityNote.setText(if (note != "") note else "")
             binding.insertActivityTitle.setText(if (title != "") title else "")
+        }
+
+        binding.insertActivityTitle.doOnLayout {
+            binding.insertActivityTitle.requestFocus()
+            binding.insertActivityTitle.setSelection(binding.insertActivityTitle.text?.length ?: 0)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                val imm = binding.insertActivityTitle.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(binding.insertActivityTitle, InputMethodManager.SHOW_IMPLICIT)
+            }, 200)
+
+        }
+
+        binding.insertActivityNote.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                val editText = v as EditText
+                editText.setSelection(editText.text.length) // Move cursor to end
+            }
         }
 
         binding.insertActivitySaveButton.setOnClickListener {

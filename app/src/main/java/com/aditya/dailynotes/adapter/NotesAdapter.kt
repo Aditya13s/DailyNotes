@@ -1,16 +1,12 @@
 package com.aditya.dailynotes.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aditya.dailynotes.R
 import com.aditya.dailynotes.activity.ViewNoteActivity
@@ -33,18 +29,14 @@ class NotesAdapter(var notes : List<Notes>) : RecyclerView.Adapter<NotesAdapter.
         holder.date.text = notes[position].date
         holder.description.text = notes[position].description
 
-        holder.itemView.setOnClickListener {
+        holder.card.setOnClickListener {
             val intent = Intent(context,ViewNoteActivity::class.java)
             intent.putExtra("id",notes[position].id)
+            Log.i("Hello", "hello")
             context.startActivity(intent)
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun filteredList(note : List<Notes>) {
-        NotesAdapter(note).notifyDataSetChanged()
-
-    }
     override fun getItemCount(): Int {
         return notes.size
     }
@@ -55,7 +47,7 @@ class NotesAdapter(var notes : List<Notes>) : RecyclerView.Adapter<NotesAdapter.
         var title = itemView.findViewById<TextView>(R.id.notesTitle)
         var description = itemView.findViewById<TextView>(R.id.notesDescription)
         var date = itemView.findViewById<TextView>(R.id.notesDate)
-
+        val card: View = itemView.findViewById(R.id.notesCard)
 
     }
 
