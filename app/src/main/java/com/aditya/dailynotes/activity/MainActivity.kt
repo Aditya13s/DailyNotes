@@ -18,7 +18,6 @@ import com.aditya.dailynotes.viewModel.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var filteredNameList: List<Notes>
     private lateinit var notes: List<Notes>
 
     override
@@ -26,30 +25,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        // Setup toolbar
+        setSupportActionBar(binding.toolbar)
 
         val repository = NotesRepository(NotesDatabase.getDatabase(applicationContext))
         mainViewModel = ViewModelProvider(this,
             MainViewModelFactory(repository))[MainViewModel::class.java]
 
         mainViewModel.getNotes().observe(this, Observer {
-            binding.notesRecyclerView.adapter = NotesAdapter(it)
-            binding.notesRecyclerView.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-            filteredNameList = it
+            setupRecyclerView(it)
             notes = it
+            updateEmptyState(it.isEmpty())
         })
 
         binding.newNote.setOnClickListener {
             val intent = Intent(this@MainActivity, InsertNoteActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-
+    }
+    
+    private fun setupRecyclerView(notesList: List<Notes>) {
+        binding.notesRecyclerView.adapter = NotesAdapter(notesList)
+        binding.notesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    }
+    
+    private fun updateEmptyState(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.emptyStateLayout.visibility = android.view.View.VISIBLE
+            binding.notesRecyclerView.visibility = android.view.View.GONE
+        } else {
+            binding.emptyStateLayout.visibility = android.view.View.GONE
+            binding.notesRecyclerView.visibility = android.view.View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_note,menu)
         val menuItem = menu?.findItem(R.id.searchNote)
         val searchView: SearchView = menuItem?.actionView as SearchView
-        searchView.queryHint = "Search Notes Here..."
+        searchView.queryHint = getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
@@ -63,21 +79,24 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun notesFilter(p0: String?) {
-        val filteredNames  = arrayListOf<Notes>()
-        for (note in filteredNameList) {
-            if(note.title.contains(p0!!) or note.description.contains(p0)) {
-                filteredNames.add(note)
+    private fun notesFilter(query: String?) {
+        val filteredNotes = arrayListOf<Notes>()
+        
+        if (query.isNullOrBlank()) {
+            // If search is empty, show all notes
+            filteredNotes.addAll(notes)
+        } else {
+            // Filter notes based on title or description containing the query (case insensitive)
+            for (note in notes) {
+                if (note.title.contains(query, ignoreCase = true) || 
+                    note.description.contains(query, ignoreCase = true)) {
+                    filteredNotes.add(note)
+                }
             }
-
-            if(filteredNames.isEmpty()) {
-            } else {
-                NotesAdapter(notes).filteredList(filteredNames)
-            }
-
         }
-
-        binding.notesRecyclerView.adapter = NotesAdapter(filteredNames)
-         binding.notesRecyclerView.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        
+        // Update adapter with filtered results
+        setupRecyclerView(filteredNotes)
+        updateEmptyState(filteredNotes.isEmpty())
     }
 }

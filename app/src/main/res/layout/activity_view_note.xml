@@ -1,104 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.InsertNoteActivity">
+    android:background="@color/background"
+    tools:context=".activity.ViewNoteActivity">
 
-
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/surface"
+        app:elevation="0dp">
 
-
-        <RelativeLayout
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/back"
+            app:navigationIconTint="@color/on_surface"
+            app:title="View Note"
+            app:titleTextColor="@color/on_surface">
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="50dp"
-                android:id="@+id/insertActivityBackButton"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/app_color"
-                android:contentDescription="@string/app_name"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/back"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/deleteNote"
-                android:layout_width="50dp"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteNote"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    app:icon="@drawable/delete"
+                    app:iconTint="@color/error"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editNote"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    app:icon="@drawable/edit"
+                    app:iconTint="@color/primary" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="60dp"
-                android:gravity="center"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:paddingHorizontal="13dp"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/delete"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:layout_marginBottom="8dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:background="@android:color/transparent"
+                tools:text="Note Title" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="50dp"
-                android:id="@+id/editNote"
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/app_color"
-                android:contentDescription="@string/app_name"
-                android:gravity="center"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:cornerRadius="10dp"
-                app:icon="@drawable/edit" />
-        </RelativeLayout>
+                android:layout_marginBottom="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/note_date_color"
+                tools:text="Mar 15, 2024 02:30 PM" />
 
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:padding="10dp"
-            android:background="@drawable/edit_text_background"
-            android:textSize="30sp"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_marginTop="40dp"/>
+            <TextView
+                android:id="@+id/noteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/on_surface"
+                android:lineSpacingExtra="4dp"
+                android:background="@android:color/transparent"
+                tools:text="This is the note content that can be very long and span multiple lines..." />
 
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:padding="10dp"
-            android:textSize="19sp"
-            android:layout_marginTop="10dp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/noteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/edit_text_background"
-            android:inputType="textMultiLine"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textSize="18sp"
-            tools:ignore="TextViewEdits,SpeakableTextPresentCheck" />
+    </androidx.core.widget.NestedScrollView>
 
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

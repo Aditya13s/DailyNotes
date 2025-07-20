@@ -24,7 +24,16 @@ class ViewNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityViewNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+        
+        // Setup toolbar
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
+        // Setup navigation
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
 
         val ID: Int = intent.getIntExtra("id", 0)
 
@@ -56,11 +65,7 @@ class ViewNoteActivity : AppCompatActivity() {
                 deleteNote(id, title, description, binding.dateTextView.text.toString());
             mainViewModel.deleteNote(note)
             finish()
-            Toast.makeText(this, "Note Successfully Deleted", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.insertActivityBackButton.setOnClickListener {
-            finish()
+            Toast.makeText(this, getString(R.string.note_deleted), Toast.LENGTH_SHORT).show()
         }
 
         binding.editNote.setOnClickListener {
@@ -77,6 +82,7 @@ class ViewNoteActivity : AppCompatActivity() {
                 )
             )
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
 

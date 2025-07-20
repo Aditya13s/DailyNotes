@@ -32,7 +32,16 @@ class InsertNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInsertNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+        
+        // Setup toolbar
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
+        // Setup navigation
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
 
         state = intent.getStringExtra("state").toString()
         position = intent.getIntExtra("id", 0)
@@ -43,33 +52,21 @@ class InsertNoteActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this,
             MainViewModelFactory(repository))[MainViewModel::class.java]
 
-
-        binding.insertActivityBackButton.setOnClickListener {
-            finish()
-        }
-
         if(state == "update") {
+            binding.toolbar.title = getString(R.string.edit_note)
             val title = intent.getStringArrayListExtra("notes")?.get(1).toString()
             val note = intent.getStringArrayListExtra("notes")?.get(2).toString()
 
-                binding.insertActivityNote.text = if (note != "") {
-                    SpannableStringBuilder(note)
-                } else {
-                    SpannableStringBuilder("")
-                }
-                binding.insertActivityTitle.text = if (title != "") {
-                    SpannableStringBuilder(title)
-                } else {
-                    SpannableStringBuilder("")
-                }
-            }
+            binding.insertActivityNote.setText(if (note != "") note else "")
+            binding.insertActivityTitle.setText(if (title != "") title else "")
+        }
 
         binding.insertActivitySaveButton.setOnClickListener {
             if(state == "update") {
                 //This give us a note data class which we have to update
                 val note = updateNote()
                 mainViewModel.updateNote(note)
-                Toast.makeText(this,"Note Successfully Updated",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.note_updated), Toast.LENGTH_SHORT).show()
                 finish()
 
             } else {
@@ -79,7 +76,7 @@ class InsertNoteActivity : AppCompatActivity() {
                     finish()
                 } else {
                     mainViewModel.insertNote(addNote)
-                    Toast.makeText(this@InsertNoteActivity, "Note Successfully Created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@InsertNoteActivity, getString(R.string.note_saved), Toast.LENGTH_SHORT).show()
                     finish()
                 }
 
